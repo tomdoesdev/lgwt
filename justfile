@@ -37,6 +37,8 @@ init SOLUTION_NAME:
            SOLUTIONS_DIR="./solutions"
            SOLUTION_NAME="{{SOLUTION_NAME}}"
 
+           git checkout main
+           git pull origin main
            git checkout -b "$SOLUTION_NAME"
 
            DIR_NAME="$(git rev-parse --abbrev-ref HEAD)"
