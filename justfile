@@ -5,10 +5,24 @@ run:
    TARGET="$(git rev-parse --abbrev-ref HEAD)"
    go run "./solutions/$TARGET/$TARGET.go"
 
-test:
-   #!/usr/bin/env zsh
-   TARGET="$(git rev-parse --abbrev-ref HEAD)"
-   go test "./solutions/$TARGET/"
+test scope="current":
+    #!/usr/bin/env zsh
+    set -e
+
+    TEST_SCOPE="{{scope}}"
+    TARGET="$(git rev-parse --abbrev-ref HEAD)"
+
+    if [[ "$TEST_SCOPE" == "all" ]]; then
+        go test ./solutions/...
+    else
+        if [[ -d "./solutions/$TARGET" ]]; then
+            go test "./solutions/$TARGET/..."
+        else
+            echo "No solution directory found for branch '$TARGET'"
+            exit 1
+        fi
+    fi
+
 
 bench:
     #!/usr/bin/env zsh
