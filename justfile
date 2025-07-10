@@ -10,6 +10,11 @@ test:
    TARGET="$(git rev-parse --abbrev-ref HEAD)"
    go test "./solutions/$TARGET/"
 
+bench:
+    #!/usr/bin/env zsh
+    TARGET="$(git rev-parse --abbrev-ref HEAD)"
+    go test -bench=. ./solutions/$TARGET
+
 
 init SOLUTION_NAME:
    #!/usr/bin/env zsh
@@ -32,4 +37,6 @@ init SOLUTION_NAME:
            else
              echo "Directory '$SOLUTIONS_DIR/$DIR_NAME' already exists."
            fi
+
+           cd '$SOLUTIONS_DIR/$DIR_NAME
 
