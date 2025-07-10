@@ -23,6 +23,24 @@ test scope="current":
         fi
     fi
 
+cover scope="current":
+    #!/usr/bin/env zsh
+    set -e
+
+    TEST_SCOPE="{{scope}}"
+    TARGET="$(git rev-parse --abbrev-ref HEAD)"
+
+    if [[ "$TEST_SCOPE" == "all" ]]; then
+        go test -cover ./solutions/...
+    else
+        if [[ -d "./solutions/$TARGET" ]]; then
+            go test -cover "./solutions/$TARGET/..."
+        else
+            echo "No solution directory found for branch '$TARGET'"
+            exit 1
+        fi
+    fi
+
 
 bench:
     #!/usr/bin/env zsh
@@ -53,6 +71,3 @@ init SOLUTION_NAME:
            else
              echo "Directory '$SOLUTIONS_DIR/$DIR_NAME' already exists."
            fi
-
-           cd '$SOLUTIONS_DIR/$DIR_NAME
-
