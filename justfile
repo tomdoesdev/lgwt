@@ -1,5 +1,16 @@
 # https://just.systems
 
+run:
+   #!/usr/bin/env zsh
+   TARGET="$(git rev-parse --abbrev-ref HEAD)"
+   go run "./solutions/$TARGET/$TARGET.go"
+
+test:
+   #!/usr/bin/env zsh
+   TARGET="$(git rev-parse --abbrev-ref HEAD)"
+   go test "./solutions/$TARGET/"
+
+
 init SOLUTION_NAME:
    #!/usr/bin/env zsh
            set -e
