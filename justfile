@@ -13,7 +13,7 @@ test:
 bench:
     #!/usr/bin/env zsh
     TARGET="$(git rev-parse --abbrev-ref HEAD)"
-    go test -bench=. ./solutions/$TARGET
+    go test -benchmem -bench=. ./solutions/$TARGET
 
 
 init SOLUTION_NAME:
